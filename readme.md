@@ -6,11 +6,14 @@ https://www.youtube.com/watch?v=6YZvp2GwT0A
 # Installation
 ## Build the Jenkins BlueOcean Docker Image (or pull and use the one I built)
 ```
+# clone project for dockerfile
+git clone https://github.com/devopsjourney1/jenkins-101.git
+```
+
+
+```
+cd jenkins-101
 docker build -t myjenkins-blueocean:2.414.2 .
-
-#IF you are having problems building the image yourself, you can pull from my registry (It is version 2.332.3-1 though, the original from the video)
-
-docker pull devopsjourney1/jenkins-blueocean:2.332.3-1 && docker tag devopsjourney1/jenkins-blueocean:2.332.3-1 myjenkins-blueocean:2.332.3-1
 ```
 
 ## Create the network 'jenkins'
@@ -43,13 +46,30 @@ docker run --name jenkins-blueocean --restart=on-failure --detach `
 
 ## Get the Password
 ```
-docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
+# in host machine
+docker exec -it <container_id> bash
+```
+
+```
+# in container
+cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 ## Connect to the Jenkins
 ```
 https://localhost:8080/
 ```
+
+## Update packages and install python3
+
+```
+# access container as root user
+sudo docker exec -u root -it <container_id> /bash
+apt-get update
+apt-get install -y python3
+python3 --version
+```
+
 
 ## Installation Reference:
 https://www.jenkins.io/doc/book/installing/docker/
