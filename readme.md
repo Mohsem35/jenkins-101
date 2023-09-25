@@ -83,6 +83,17 @@ docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/
 docker inspect <container_id> | grep IPAddress
 ```
 
+```
+# Docker cloud details
+tcp://172.19.0.3:2375                  # Docker Host URI
+```
+```
+# python3 image  
+FROM jenkins/agent: alpine-jdk11
+USER root
+RUN apk add python3 RUN apk add py3-pip
+USER jenkins
+```
 ## Using my Jenkins Python Agent
 ```
 docker pull devopsjourney1/myjenkinsagents:python
